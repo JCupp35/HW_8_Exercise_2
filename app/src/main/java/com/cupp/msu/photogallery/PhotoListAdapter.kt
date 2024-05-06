@@ -4,9 +4,8 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
-import com.bignerdranch.android.photogallery.R
-import com.bignerdranch.android.photogallery.databinding.ListItemGalleryBinding
 import com.cupp.msu.photogallery.api.GalleryItem
+import com.cupp.msu.photogallery.databinding.ListItemGalleryBinding
 
 
 class PhotoViewHolder(
@@ -14,7 +13,6 @@ class PhotoViewHolder(
 ) : RecyclerView.ViewHolder(binding.root) {
     fun bind(galleryItem: GalleryItem) {
         binding.itemImageView.load(galleryItem.url) {
-            placeholder(R.drawable.bill_up_close)
         }
     }
 }

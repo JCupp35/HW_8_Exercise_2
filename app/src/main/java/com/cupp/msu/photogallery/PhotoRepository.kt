@@ -1,22 +1,32 @@
 package com.cupp.msu.photogallery
 
-import com.cupp.msu.photogallery.api.FlickrApi
+import com.cupp.msu.photogallery.api.NasaAPI
 import com.cupp.msu.photogallery.api.GalleryItem
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
-import retrofit2.create
+
 
 class PhotoRepository {
-    private val flickrApi: FlickrApi
-
+    private val nasaApi: NasaAPI
+private val apiKey = "FcbzgEwCV42C1bVOCdwLHQNZ9SIHGH89Q89gec3v"
     init {
         val retrofit: Retrofit = Retrofit.Builder()
-            .baseUrl("https://api.flickr.com/")
+            .baseUrl("https://api.nasa.gov/")
             .addConverterFactory(MoshiConverterFactory.create())
             .build()
-        flickrApi = retrofit.create()
+
+        nasaApi = retrofit.create(NasaAPI::class.java)
     }
 
-    suspend fun fetchPhotos(): List<GalleryItem> =
-        flickrApi.fetchPhotos().photos.galleryItems
+    suspend fun fetchPhotosForDate(date: String): List<GalleryItem> =
+        nasaApi.fetchPhotos(apiKey, date = date)
+
+    suspend fun fetchPhotosForDateRange(startDate: String, endDate: String): List<GalleryItem> =
+        nasaApi.fetchPhotos(apiKey, startDate = startDate, endDate = endDate)
+
+    suspend fun fetchRandomPhotos(apiKey: String, count: Int): List<GalleryItem> =
+        nasaApi.fetchPhotos(this.apiKey, count = count)
+
+    suspend fun fetchThumbnails(date: String, thumbs: Boolean): List<GalleryItem> =
+        nasaApi.fetchPhotos(apiKey, date = date, thumbs = thumbs)
 }

@@ -19,6 +19,6 @@ class ExampleInstrumentedTest {
     fun useAppContext() {
         // Context of the app under test.
         val appContext = InstrumentationRegistry.getInstrumentation().targetContext
-        assertEquals("com.bignerdranch.android.photogallery", appContext.packageName)
+        assertEquals("com.cupp.msu.photogallery", appContext.packageName)
     }
 }
